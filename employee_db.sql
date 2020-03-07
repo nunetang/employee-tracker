@@ -1,30 +1,39 @@
-DROP DATABASE IF EXISTS employee_db;
-CREATE DATABASE employee_db;
-USE employee_db;
+	DROP DATABASE IF EXISTS employee_DB;
+    CREATE DATABASE employee_DB;
+	
 
-CREATE TABLE department (
-id INTEGER AUTO_INCREMENT NOT NULL ,
-name VARCHAR(30) NULL,
-PRIMARY KEY (id)
-);
+	USE employee_DB;
+	
 
+	CREATE TABLE department(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(30) NOT NULL
+	);
+	
 
-CREATE TABLE role (
-id INTEGER NOT NULL AUTO_INCREMENT,
-title VARCHAR (30) NULL,
-salary DECIMAL (10,2) NULL,
-department_id INT (10) NULL,
-PRIMARY KEY (id)
-);
+	CREATE TABLE role(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR (30),
+	salary DECIMAL NOT NULL,
+	department_id INT NOT NULL,
+	CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES department(id)
+	);
+	
 
+	CREATE TABLE employee(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	first_name VARCHAR(30) NOT NULL,
+	last_name VARCHAR(30) NOT NULL,
+	role_id INT NOT NULL,
+	CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id),
+	manager_id INT, 
+	CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id)
+	);
+	
 
-CREATE TABLE employee (
-id INTEGER NOT NULL AUTO_INCREMENT,
-first_name VARCHAR (30) NULL,
-last_name VARCHAR (30) NULL,
-role_id INT (30) NULL,
-manager_id INT (30) NULL,
-PRIMARY KEY (id)
-);	
+	SELECT * FROM department;
+	SELECT * FROM role;
+	SELECT * FROM employee;
+
 
 
